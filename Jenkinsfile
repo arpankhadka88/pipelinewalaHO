@@ -10,7 +10,7 @@ withCredentials([
     stage('Authorize DevHub') {
         sh """
           sf org login jwt \
-            --instance-url ${INSTANCE_URL} \
+            --instance-url ${SF_INSTANCE_URL} \
             --jwt-key-file ${JWT_KEY_FILE} \
             --client-id ${CQ_CONSUMER_SECRET} \
             --username ${SF_USERNAME}
