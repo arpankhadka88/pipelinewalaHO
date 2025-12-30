@@ -1,4 +1,7 @@
 node {
+    // Checkout code from Git
+    checkout scm
+    
     def SF_USERNAME = 'arpankhadka88@cunning-panda-o148fn.com'
     def SF_INSTANCE_URL = "https://login.salesforce.com"
     
