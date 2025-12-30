@@ -21,39 +21,31 @@ node
         }
     }
 
-    stage('Create Test Scratch Org') 
-    {
-        script 
-        {
-            def scratchOrgAlias = 'PLTest'
-        
-            // Check if scratch org exists
-            def orgExists = sh
-            (
-                script: "sf org list --json | grep -q '\"alias\":\"${scratchOrgAlias}\"'",
-                returnStatus: true
-            )
-        
-            if (orgExists == 0) 
-            {
-                echo "Scratch org with alias ${scratchOrgAlias} already exists"
-            } 
-            else 
-            {
-            echo "Scratch org ${scratchOrgAlias} not found. Creating new scratch org..."
-            sh """
-              sf org create scratch \
-                --definition-file config/project-scratch-def.json \
-                --alias ${scratchOrgAlias} \
-                --set-default \
-                --duration-days 7 \
-                --target-dev-hub ${SF_USERNAME}
-            """
-            echo "Scratch org ${scratchOrgAlias} created successfully"
-        }
-    }
-        
+    stage('Create Test Scratch Org') {
+    def scratchOrgAlias = 'PLTest'
 
+    def orgExists = sh(
+        script: "sf org list --json | grep -q '\"alias\":\"${scratchOrgAlias}\"'",
+        returnStatus: true
+    )
+
+    if (orgExists == 0) {
+        echo "Scratch org with alias ${scratchOrgAlias} already exists"
+    } else {
+        echo "Scratch org ${scratchOrgAlias} not found. Creating new scratch org..."
+
+        sh """
+          sf org create scratch \
+            --definition-file config/project-scratch-def.json \
+            --alias ${scratchOrgAlias} \
+            --set-default \
+            --duration-days 7 \
+            --target-dev-hub ${SF_USERNAME}
+        """
+
+        echo "Scratch org ${scratchOrgAlias} created successfully"
+    }
 }
+
 }
   
